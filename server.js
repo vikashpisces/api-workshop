@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const app = express()
 const PORT = process.env.PORT || 8080
 const productsRouter = require('./routes/product.js')
+const usersRouter = require('./routes/user.js')
 
 async function connectMongo() { 
   try {
@@ -27,6 +28,7 @@ const logger = (req, res, next) => {
 
 app.use(logger);
 app.use("/products", productsRouter)
+app.use("/users", usersRouter)
 
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`)
