@@ -19,6 +19,15 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const product = req.body
+  const { user } = req
+  if (!user) {
+    return res.status(401).send('Unauthorized')
+  }
+
+  if (user.role?.toLowerCase() !== 'admin') {
+    return res.status(403).send('Forbidden')
+  }
+
   const newProduct = await Product.create(product)
   res.send(newProduct)
 })
